@@ -1,0 +1,18 @@
+[images]
+  remote_images = ["https://xekhachquangninh.com/files/assets/anhxe/*.jpg", "https://xemongcaitraveltt.com/upload/partner/*.png", "https://haiphongtravel.vn/wp-content/uploads/*.jpg", "http://phongvevip.com/wp-content/uploads/*.jpg"]
+
+[build]
+  command = "bun run build"
+  publish = "dist"
+
+[dev]
+  command = "bun run dev"
+  port = 3000
+  targetPort = 5173
+  publish = "dist"
+  autoLaunch = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
