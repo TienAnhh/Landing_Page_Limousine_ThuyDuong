@@ -179,6 +179,50 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
             </select>
           </div>
 
+            <script>
+document.addEventListener("DOMContentLoaded", function() {
+  const dateInput = document.getElementById("bookingDateDisplay");
+  const select = document.getElementById("travelTime");
+
+  // Hàm xử lý lọc khung giờ
+  function updateAvailableTimes() {
+    const selectedDate = new Date(dateInput.value);
+    const now = new Date();
+
+    // Reset lại tất cả option (enable + xóa text "(Đã qua)")
+    for (let option of select.options) {
+      option.disabled = false;
+      option.textContent = option.textContent.replace(" (Đã qua)", "");
+    }
+
+    // Nếu không có ngày hoặc ngày chưa hợp lệ → dừng
+    if (!dateInput.value) return;
+
+    // Nếu ngày chọn là hôm nay
+    const isToday = selectedDate.toDateString() === now.toDateString();
+
+    if (isToday) {
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+      for (let option of select.options) {
+        if (!option.value) continue;
+
+        const [hours, minutes] = option.value.split(":").map(Number);
+        const optionMinutes = hours * 60 + minutes;
+
+        if (optionMinutes <= currentMinutes) {
+          option.disabled = true;
+          option.textContent += " (Đã qua)";
+        }
+      }
+    }
+  }
+
+  // Lắng nghe sự kiện khi người dùng chọn ngày
+  dateInput.addEventListener("change", updateAvailableTimes);
+});
+</script>
+
           <div class="form-group">
             <label for="seats" class="form-label">Số lượng người *</label>
             <select id="seats" class="form-control">
