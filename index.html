@@ -179,27 +179,6 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
             </select>
           </div>
 
-            <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const select = document.getElementById("travelTime");
-
-    const now = new Date();
-    const currentMinutes = now.getHours() * 60 + now.getMinutes(); // phút hiện tại
-
-    for (let option of select.options) {
-      if (!option.value) continue; // bỏ qua option "Chọn khung giờ"
-
-      const [hours, minutes] = option.value.split(":").map(Number);
-      const optionMinutes = hours * 60 + minutes;
-
-      if (optionMinutes <= currentMinutes) {
-        option.disabled = true;
-        option.textContent += " (Đã qua)";
-      }
-    }
-  });
-</script>
-
           <div class="form-group">
             <label for="seats" class="form-label">Số lượng người *</label>
             <select id="seats" class="form-control">
